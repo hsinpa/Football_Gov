@@ -8,7 +8,7 @@ using System.Threading;
 
 public class TouchSerialPort {
 	private SerialPort _sp;
-	private const float speed_1 = 0.5f, speed_2 = 4.5f, speed_3 = 20f;
+    private const float speed_1 = 0.5f, speed_2 = 4.5f, speed_3 = 15f, speed_4 = 25f;
 	private string lastBinaryRecord;
 
 	public static bool isPress;
@@ -34,10 +34,10 @@ public class TouchSerialPort {
 	}
 
 	public void OnTouch(string p_field, float p_velocity) {
-		
-		//Debug.Log("Velocity " + p_velocity);
-		//Send something only moving velocity higher than speed_1
-		if (p_velocity < speed_1) {
+
+        //Debug.Log("Velocity " + p_velocity);
+        //Send something only moving velocity higher than speed_1
+        if (p_velocity < speed_1) {
 			OnTouchExist();
 		} else {
 			string velocity = EncodeVelocity(p_velocity);
@@ -54,15 +54,14 @@ public class TouchSerialPort {
 	}
 
 	private string EncodeVelocity(float p_velocity) {
-		//Debug.Log("Velocity " + p_velocity);
 
-		if (p_velocity < speed_1) {
+        if (p_velocity >= speed_1 && p_velocity < speed_2) {
 			return "00";
-		} else if (p_velocity >= speed_1 && p_velocity < speed_2) {
-			return "01";
 		} else if (p_velocity >= speed_2 && p_velocity < speed_3) {
-			return "10";
-		} else if (p_velocity >= speed_3) {
+            return "01";
+        } else if (p_velocity >= speed_3 && p_velocity < speed_4) {
+            return "10";
+		} else if (p_velocity >= speed_4) {
 			return "11";
 		}
 
