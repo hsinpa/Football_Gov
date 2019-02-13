@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Audio;
 
 public class GamePlayCtrl : MonoBehaviour {
 	[SerializeField]
@@ -31,6 +32,8 @@ public class GamePlayCtrl : MonoBehaviour {
 		goalKeeperLevel = FootballCore.GetComponentInChildren<GoalKeeperLevel>();
 
 		GoalDetermine.EventFinishShoot += OnGoalEvent;
+
+        Reset();
 	}
 
 	public void SetDifficulty(int p_difficulty) {
@@ -74,11 +77,16 @@ public class GamePlayCtrl : MonoBehaviour {
 	}
 
 	private void OnGoalEvent (bool isGoal, Area area) {
-		Reset();
-		
-		this.footballMain.footballViewCtrl.UpdateScore((isGoal) ? 1 : 0, 1);
-	}
+        StartCoroutine(
+            FootballMain.LateExecution(1, Reset)
+        );
+        bool isMaxRound = this.footballMain.footballViewCtrl.UpdateScore((isGoal) ? 1 : 0, 1);
 
+
+        if (isGoal && !isMaxRound)
+            AudioManager.instance.PlayAudio(this.gameObject, EventFlag.Audio.Hurrah, 1);
+	}
+    
 	private void Reset() {
         ShootAI.shareAI.reset();                // used this method to reset new randomised ball's position
 
@@ -94,9 +102,11 @@ public class GamePlayCtrl : MonoBehaviour {
         //     if (IsWallKick)                         // if we want wall kick
         //         Wall.share.setWall(Shoot.share._ball.transform.position);       // set wall position with respect to ball position
         // }
-	}
 
-	public void KickBall(Vector3 p_direction, float p_force) {
+        AudioManager.instance.PlayAudio(this.gameObject, EventFlag.Audio.Whistle, 1f);
+    }
+
+    public void KickBall(Vector3 p_direction, float p_force) {
 		if (this.footballMain != null && this.footballMain.gameState == FootballMain.GameState.InGame) {
 				shootAI._ball.velocity += p_direction * force;
 			if (p_force < 1) {
@@ -107,11 +117,14 @@ public class GamePlayCtrl : MonoBehaviour {
 				Shoot.EventShoot();
 			}
 			recordBallFlightTime = Time.time + maxBallFlightTime;
-		}
-	}
+
+            AudioManager.instance.PlayAudio(this.gameObject, EventFlag.Audio.KickBall, 0.8f);
+        }
+    }
 
 	void OnDestroy()
 	{
 		GoalDetermine.EventFinishShoot -= OnGoalEvent;
 	}
+
 }

@@ -41,7 +41,7 @@ public class FootballMain : SceneMainController {
 		footballViewCtrl.scorePanel.SetActive(false);
 		footballViewCtrl.SwitchFootballVisibility(false);
 
-		Init();
+		//Init();
 	}
 
 	protected override void Init() {
@@ -116,7 +116,7 @@ public class FootballMain : SceneMainController {
 		}
 	}
 
-	private IEnumerator LateExecution(float p_delay_time, System.Action p_callback) {
+	public static IEnumerator LateExecution(float p_delay_time, System.Action p_callback) {
 		yield return new WaitForSeconds(p_delay_time);
 		if (p_callback != null)
 			p_callback();

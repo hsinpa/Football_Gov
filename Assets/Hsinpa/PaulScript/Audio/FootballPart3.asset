@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafbc643dbb8f4291bb34500dd4ce66b, type: 3}
+  m_Name: FootballPart3
+  m_EditorClassIdentifier: 
+  audio_combination:
+  - audio: {fileID: 8300000, guid: ec82aee1586adba4d8ea7fc7446b9901, type: 3}
+    _id: hurrah
+  - audio: {fileID: 8300000, guid: c4d7face871018841a1f8a2942cb0212, type: 3}
+    _id: kick_ball
+  - audio: {fileID: 8300000, guid: 475da935c8506a348964e8332e7f26c7, type: 3}
+    _id: whistle

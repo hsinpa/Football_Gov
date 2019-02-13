@@ -25,7 +25,7 @@ public class FootballViewCtrl : MonoBehaviour {
 		this.footballMain = footballMain;
 	}
 
-	public void UpdateScore(int addScore, int addRound) {
+	public bool UpdateScore(int addScore, int addRound) {
 		_score += addScore;
 		_round += addRound;
 
@@ -43,7 +43,8 @@ public class FootballViewCtrl : MonoBehaviour {
 			this.footballMain.OnReceiveClientMsg(EventFlag.NetMessageID.GameOver, "");
 		}
 
-	}
+        return _round == _maxRound;
+    }
 
 	public void SwitchFootballVisibility(bool isVisible) {
 		int maxFarPlane = 100;

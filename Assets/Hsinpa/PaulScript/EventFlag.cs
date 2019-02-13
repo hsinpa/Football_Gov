@@ -17,4 +17,9 @@ public class EventFlag  {
 		public const short JSONMessageID = 1439;
 	}
 
+    public class Audio {
+        public const string Hurrah = "hurrah";
+        public const string KickBall = "kick_ball";
+        public const string Whistle = "whistle";
+    }
 }
